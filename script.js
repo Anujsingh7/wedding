@@ -343,3 +343,61 @@ window.addEventListener("DOMContentLoaded", () => {
     triggerPetalShower(18, true);
   }, 1200);
 });
+
+// ============================================================
+// Royal Wedding "Open Invitation" Envelope Controller
+// ============================================================
+const weddingEnvelopeScreen = document.getElementById("weddingEnvelopeScreen");
+const openInvitationBtn = document.getElementById("openInvitationBtn");
+const envelopeCard = document.querySelector(".envelope-card");
+
+if (weddingEnvelopeScreen) {
+  // Keep body scrolling locked while envelope is active
+  document.body.classList.add("envelope-active");
+
+  let isEnvelopeOpened = false;
+
+  const openWeddingInvitation = (e) => {
+    if (isEnvelopeOpened) return;
+    if (e) e.stopPropagation();
+    isEnvelopeOpened = true;
+
+    // 1. Play wedding song immediately within explicit user click gesture
+    if (weddingAudio) {
+      weddingAudio.volume = 0.7;
+      weddingAudio.play().then(() => {
+        setAudioState(true);
+      }).catch(err => {
+        console.warn("Audio playback error:", err);
+      });
+    }
+
+    // 2. Shower celebratory rose & marigold petals
+    triggerPetalShower(52);
+
+    // 3. Display celebratory blessing toast
+    showBlessingsToast("🌸 Welcome to Sandeep & Anchal's Wedding Celebrations!");
+
+    // 4. Smooth card unfold / envelope reveal
+    weddingEnvelopeScreen.classList.add("opened");
+    document.body.classList.remove("envelope-active");
+
+    // Clean up from view after transition completes
+    setTimeout(() => {
+      weddingEnvelopeScreen.style.display = "none";
+    }, 850);
+  };
+
+  if (openInvitationBtn) {
+    openInvitationBtn.addEventListener("click", openWeddingInvitation);
+  }
+
+  // Also allow tapping anywhere on the card to open smoothly
+  if (envelopeCard) {
+    envelopeCard.addEventListener("click", (e) => {
+      if (e.target !== openInvitationBtn && !openInvitationBtn.contains(e.target)) {
+        openWeddingInvitation(e);
+      }
+    });
+  }
+}

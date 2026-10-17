@@ -1805,3 +1805,257 @@ a {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* ============================================================
+   Royal Wedding "Open Invitation" Envelope Screen
+   ============================================================ */
+body.envelope-active {
+  overflow: hidden !important;
+}
+
+.wedding-envelope-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  background: radial-gradient(circle at center, #350814 0%, #1c0309 60%, #0c0104 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s;
+}
+
+.wedding-envelope-screen.opened {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.08);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.envelope-card-wrapper {
+  perspective: 1000px;
+  max-width: 470px;
+  width: 100%;
+}
+
+.envelope-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(62, 12, 25, 0.98) 0%, rgba(34, 5, 13, 0.99) 100%);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 36px 26px 30px;
+  text-align: center;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85),
+              0 0 45px rgba(201, 164, 92, 0.25),
+              inset 0 0 30px rgba(201, 164, 92, 0.08);
+  outline: 1.5px dashed rgba(220, 184, 111, 0.45);
+  outline-offset: -10px;
+  box-sizing: border-box;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ornate Golden Corner Accents */
+.corner-ornament {
+  position: absolute;
+  font-size: 13px;
+  color: var(--gold);
+  opacity: 0.85;
+  line-height: 1;
+}
+
+.corner-ornament.top-left {
+  top: 15px;
+  left: 17px;
+}
+
+.corner-ornament.top-right {
+  top: 15px;
+  right: 17px;
+}
+
+.corner-ornament.bottom-left {
+  bottom: 15px;
+  left: 17px;
+}
+
+.corner-ornament.bottom-right {
+  bottom: 15px;
+  right: 17px;
+}
+
+.envelope-emblem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 184, 111, 0.25) 0%, transparent 72%);
+}
+
+.envelope-ganesha {
+  width: 58px;
+  height: 58px;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(220, 184, 111, 0.45));
+}
+
+.envelope-shloka {
+  font-size: clamp(14px, 4vw, 16px);
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin: 0 0 6px;
+}
+
+.envelope-invitation-label {
+  font-size: 12px;
+  color: #ffdca3;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0 0 14px;
+}
+
+.envelope-couple-names {
+  font-family: var(--serif);
+  font-size: clamp(34px, 8.5vw, 44px);
+  font-weight: 600;
+  color: #fffaf0;
+  line-height: 1.15;
+  margin: 0 0 8px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.envelope-couple-names .name-amp {
+  color: var(--gold);
+  font-style: italic;
+  font-size: 0.85em;
+  margin: 0 5px;
+}
+
+.envelope-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 14px;
+  margin: 10px 0 12px;
+  opacity: 0.85;
+}
+
+.envelope-date-venue {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2.2px;
+  margin: 0 0 8px;
+}
+
+.envelope-sub {
+  font-size: 13.5px;
+  color: rgba(247, 237, 216, 0.85);
+  line-height: 1.45;
+  margin: 0 auto 24px;
+  max-width: 360px;
+}
+
+/* Glowing Open Invitation Button */
+.open-invitation-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 13px 30px;
+  background: linear-gradient(135deg, #f7d58a 0%, #dcb86f 50%, #b38536 100%);
+  color: #24050d;
+  border: 2px solid #fff5dc;
+  border-radius: 40px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(220, 184, 111, 0.55), 0 0 22px rgba(220, 184, 111, 0.4);
+  animation: envelopeBtnGlow 2.2s infinite ease-in-out;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.open-invitation-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 38px rgba(220, 184, 111, 0.8), 0 0 30px rgba(220, 184, 111, 0.6);
+}
+
+.open-invitation-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.envelope-btn-icon {
+  font-size: 22px;
+}
+
+.envelope-btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.envelope-btn-main {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.envelope-btn-hindi {
+  font-size: 11.5px;
+  font-weight: 600;
+  opacity: 0.9;
+  line-height: 1.1;
+  font-family: 'Hind', sans-serif;
+}
+
+.envelope-btn-sparkle {
+  font-size: 17px;
+}
+
+.envelope-music-hint {
+  font-size: 12px;
+  color: var(--gold);
+  opacity: 0.85;
+  margin: 14px 0 0;
+  letter-spacing: 0.5px;
+}
+
+@keyframes envelopeBtnGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 28px rgba(220, 184, 111, 0.5), 0 0 20px rgba(220, 184, 111, 0.35);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 12px 40px rgba(220, 184, 111, 0.8), 0 0 32px rgba(220, 184, 111, 0.6);
+  }
+}
+
+@media (max-width: 480px) {
+  .envelope-card {
+    padding: 30px 18px 24px;
+  }
+  .open-invitation-btn {
+    padding: 12px 22px;
+  }
+}
