@@ -177,15 +177,51 @@ function setAudioState(isPlaying) {
 }
 
 if (weddingAudio && audioToggle) {
-  // Set initial comfortable volume
+  // Set comfortable initial volume
   weddingAudio.volume = 0.65;
 
-  // Initialize state as muted by default until interaction/click
-  setAudioState(false);
+  // Set default state as unmuted & active
+  setAudioState(true);
+
+  // Attempt immediate unmuted playback when page opens
+  const startAudio = () => {
+    weddingAudio.play().then(() => {
+      setAudioState(true);
+    }).catch(() => {
+      // Browser blocked zero-click sound: wait for first interaction
+    });
+  };
+
+  // Try immediately
+  startAudio();
+  window.addEventListener("DOMContentLoaded", startAudio);
+  window.addEventListener("load", startAudio);
+
+  // Instant trigger: at the very first tap/click/scroll/touch, play unmuted
+  let userHasInteracted = false;
+  function handleFirstUserInteraction() {
+    if (userHasInteracted) return;
+    userHasInteracted = true;
+
+    if (weddingAudio.paused) {
+      weddingAudio.play().then(() => {
+        setAudioState(true);
+      }).catch(() => {});
+    }
+
+    ["pointerdown", "touchstart", "mousedown", "click", "scroll", "keydown"].forEach(evtName => {
+      window.removeEventListener(evtName, handleFirstUserInteraction);
+    });
+  }
+
+  ["pointerdown", "touchstart", "mousedown", "click", "scroll", "keydown"].forEach(evtName => {
+    window.addEventListener(evtName, handleFirstUserInteraction, { once: true, passive: true });
+  });
 
   // Toggle button click listener
   audioToggle.addEventListener("click", event => {
     event.stopPropagation();
+    userHasInteracted = true;
     if (weddingAudio.paused) {
       weddingAudio.play().then(() => {
         setAudioState(true);
@@ -198,29 +234,7 @@ if (weddingAudio && audioToggle) {
     }
   });
 
-  // Autoplay attempt on user's first interaction anywhere on page (browser policy compliance)
-  let userHasInteracted = false;
-  function handleFirstUserInteraction() {
-    if (userHasInteracted) return;
-    userHasInteracted = true;
-
-    weddingAudio.play().then(() => {
-      setAudioState(true);
-    }).catch(() => {
-      // Browsers may still require direct click on player button
-      setAudioState(false);
-    });
-
-    ["click", "touchstart", "scroll", "keydown"].forEach(evtName => {
-      window.removeEventListener(evtName, handleFirstUserInteraction);
-    });
-  }
-
-  ["click", "touchstart", "scroll", "keydown"].forEach(evtName => {
-    window.addEventListener(evtName, handleFirstUserInteraction, { once: true, passive: true });
-  });
-
-  // Handle audio end / loop
+  // Handle audio end / loop seamlessly
   weddingAudio.addEventListener("ended", () => {
     weddingAudio.currentTime = 0;
     weddingAudio.play().catch(() => {});
