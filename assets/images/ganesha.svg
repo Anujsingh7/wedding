@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" fill="none">
+  <defs>
+    <!-- Royal Gold Multi-stop Gradient -->
+    <linearGradient id="ganeshGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8db"/>
+      <stop offset="25%" stop-color="#f5d77f"/>
+      <stop offset="55%" stop-color="#d4af37"/>
+      <stop offset="85%" stop-color="#aa7c11"/>
+      <stop offset="100%" stop-color="#805b0d"/>
+    </linearGradient>
+
+    <!-- Warm Golden Aura Glow -->
+    <filter id="ganeshGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.5"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#d4af37" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#ganeshGlow)">
+    <!-- Decorative Auspicious Aureole / Halo -->
+    <path d="M32 28 C45 16 75 16 88 28" stroke="url(#ganeshGold)" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4" opacity="0.85"/>
+    <circle cx="60" cy="14" r="2.5" fill="url(#ganeshGold)"/>
+    <circle cx="48" cy="17" r="1.5" fill="url(#ganeshGold)"/>
+    <circle cx="72" cy="17" r="1.5" fill="url(#ganeshGold)"/>
+
+    <!-- Royal Mukut / Crown -->
+    <!-- Top Kalash & Bindu -->
+    <circle cx="60" cy="19" r="3" fill="url(#ganeshGold)"/>
+    <path d="M57 23 L63 23 L60 19 Z" fill="url(#ganeshGold)"/>
+    <!-- Crown Main Body -->
+    <path d="M47 34 C49 26 53 23 60 23 C67 23 71 26 73 34 Z" fill="url(#ganeshGold)"/>
+    <path d="M44 35 L76 35 L74 38 L46 38 Z" fill="#805b0d"/>
+    <path d="M42 39 C48 37 72 37 78 39 L76 43 C70 41 50 41 44 43 Z" fill="url(#ganeshGold)"/>
+    <!-- Crown Pearl Beads -->
+    <circle cx="52" cy="31" r="1.5" fill="#fff8db"/>
+    <circle cx="60" cy="30" r="2" fill="#fff8db"/>
+    <circle cx="68" cy="31" r="1.5" fill="#fff8db"/>
+
+    <!-- Sacred Red Vermilion / Kumkum Tilak on Forehead -->
+    <path d="M57 42 C57 42 58 48 60 55 C62 48 63 42 63 42 Z" fill="#d90429"/>
+    <!-- Chandan Crescent / Tripundra Arcs -->
+    <path d="M50 46 C56 49 64 49 70 46" stroke="url(#ganeshGold)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M52 49 C57 52 63 52 68 49" stroke="url(#ganeshGold)" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Red Bindi Dot -->
+    <circle cx="60" cy="57" r="2" fill="#d90429"/>
+
+    <!-- Eyes (Gentle, Divine Gazes) -->
+    <path d="M49 52 C52 51 55 53 55 54 C53 55 50 55 49 52 Z" fill="url(#ganeshGold)"/>
+    <path d="M71 52 C68 51 65 53 65 54 C67 55 70 55 71 52 Z" fill="url(#ganeshGold)"/>
+
+    <!-- Left Majestic Ear -->
+    <path d="M46 39 C30 36 18 45 18 60 C18 73 30 77 41 72 C43 65 43 54 48 44" 
+          stroke="url(#ganeshGold)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M26 53 C24 62 30 68 36 66" stroke="url(#ganeshGold)" stroke-width="2" stroke-linecap="round"/>
+    <!-- Ear Jewel / Kundal -->
+    <circle cx="21" cy="62" r="2.2" fill="url(#ganeshGold)"/>
+
+    <!-- Right Majestic Ear -->
+    <path d="M74 39 C90 36 102 45 102 60 C102 73 90 77 79 72 C77 65 77 54 72 44" 
+          stroke="url(#ganeshGold)" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M94 53 C96 62 90 68 84 66" stroke="url(#ganeshGold)" stroke-width="2" stroke-linecap="round"/>
+    <!-- Ear Jewel / Kundal -->
+    <circle cx="99" cy="62" r="2.2" fill="url(#ganeshGold)"/>
+
+    <!-- Sacred Tusk (Ekadanta) on Right -->
+    <path d="M73 66 L82 70 L73 73 Z" fill="#fff8db" stroke="url(#ganeshGold)" stroke-width="0.8"/>
+
+    <!-- Curved Sacred Trunk (Vakratunda) -->
+    <!-- Trunk Flow from brow curving smoothly down and to the right holding Modak -->
+    <path d="M56 55 C54 65 52 79 53 91 C54 100 62 106 72 104 C81 102 85 93 81 85 C77 79 69 80 67 85 C66 89 69 93 73 91" 
+          stroke="url(#ganeshGold)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Trunk Decorative Rings & Highlights -->
+    <path d="M54 71 C57 72 61 72 64 71" stroke="#fff8db" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M53 78 C56 79 60 79 63 78" stroke="#fff8db" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M53 85 C56 86 60 86 63 85" stroke="#fff8db" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- Golden Modak at tip of trunk -->
+    <ellipse cx="76" cy="83" rx="4" ry="4.5" fill="url(#ganeshGold)"/>
+    <path d="M76 78 L78.5 81 L73.5 81 Z" fill="#fff8db"/>
+    <circle cx="76" cy="83" r="1.5" fill="#d90429"/>
+
+    <!-- Auspicious Bottom Flourish / Lotus Petal Base -->
+    <path d="M48 108 C54 105 66 105 72 108" stroke="url(#ganeshGold)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="60" cy="111" r="1.8" fill="url(#ganeshGold)" opacity="0.8"/>
+  </g>
+</svg>
