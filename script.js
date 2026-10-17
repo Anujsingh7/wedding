@@ -161,7 +161,7 @@ function setAudioState(isPlaying) {
     musicWidget.classList.add("is-playing");
     musicWidget.classList.remove("is-muted");
     audioToggle.setAttribute("aria-pressed", "true");
-    audioToggle.setAttribute("title", "Click to disable voice / mute song");
+    audioToggle.setAttribute("title", "Click to pause / mute song");
     if (musicStatusText) musicStatusText.textContent = "Music On";
     if (iconSoundOn) iconSoundOn.style.display = "block";
     if (iconSoundOff) iconSoundOff.style.display = "none";
@@ -170,61 +170,71 @@ function setAudioState(isPlaying) {
     musicWidget.classList.add("is-muted");
     audioToggle.setAttribute("aria-pressed", "false");
     audioToggle.setAttribute("title", "Click to play wedding song");
-    if (musicStatusText) musicStatusText.textContent = "Muted";
+    if (musicStatusText) musicStatusText.textContent = "Play Song";
     if (iconSoundOn) iconSoundOn.style.display = "none";
     if (iconSoundOff) iconSoundOff.style.display = "block";
   }
 }
 
 if (weddingAudio && audioToggle) {
-  // Set comfortable initial volume
+  // Comfortable initial volume
   weddingAudio.volume = 0.65;
 
-  // Set default state as unmuted & active
-  setAudioState(true);
+  // Safe user activation events (no scroll, because scroll is NOT a user gesture)
+  const activationEvents = ["pointerdown", "touchstart", "touchend", "mousedown", "click", "keydown"];
 
-  // Attempt immediate unmuted playback when page opens
-  const startAudio = () => {
-    weddingAudio.play().then(() => {
-      setAudioState(true);
-    }).catch(() => {
-      // Browser blocked zero-click sound: wait for first interaction
+  const removeActivationListeners = () => {
+    activationEvents.forEach(evt => {
+      document.removeEventListener(evt, handleFirstGesture);
+      window.removeEventListener(evt, handleFirstGesture);
     });
   };
 
-  // Try immediately
-  startAudio();
-  window.addEventListener("DOMContentLoaded", startAudio);
-  window.addEventListener("load", startAudio);
-
-  // Instant trigger: at the very first tap/click/scroll/touch, play unmuted
-  let userHasInteracted = false;
-  function handleFirstUserInteraction() {
-    if (userHasInteracted) return;
-    userHasInteracted = true;
-
-    if (weddingAudio.paused) {
-      weddingAudio.play().then(() => {
-        setAudioState(true);
-      }).catch(() => {});
+  const handleFirstGesture = () => {
+    if (!weddingAudio.paused) {
+      removeActivationListeners();
+      return;
     }
 
-    ["pointerdown", "touchstart", "mousedown", "click", "scroll", "keydown"].forEach(evtName => {
-      window.removeEventListener(evtName, handleFirstUserInteraction);
+    weddingAudio.play().then(() => {
+      setAudioState(true);
+      removeActivationListeners();
+    }).catch(() => {
+      // Keep listening until a gesture succeeds
     });
-  }
+  };
 
-  ["pointerdown", "touchstart", "mousedown", "click", "scroll", "keydown"].forEach(evtName => {
-    window.addEventListener(evtName, handleFirstUserInteraction, { once: true, passive: true });
+  // Attempt autoplay immediately upon load
+  const attemptAutoplay = () => {
+    const playPromise = weddingAudio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        setAudioState(true);
+        removeActivationListeners();
+      }).catch(() => {
+        // Autoplay blocked by browser policy: accurately display Play Song and listen for first touch anywhere
+        setAudioState(false);
+      });
+    }
+  };
+
+  attemptAutoplay();
+  window.addEventListener("DOMContentLoaded", attemptAutoplay, { once: true });
+  window.addEventListener("load", attemptAutoplay, { once: true });
+
+  // Attach gesture unlockers to document and window so ANY touch on the screen starts the song
+  activationEvents.forEach(evt => {
+    document.addEventListener(evt, handleFirstGesture, { passive: true });
+    window.addEventListener(evt, handleFirstGesture, { passive: true });
   });
 
-  // Toggle button click listener
+  // Explicit Toggle Button Click
   audioToggle.addEventListener("click", event => {
     event.stopPropagation();
-    userHasInteracted = true;
     if (weddingAudio.paused) {
       weddingAudio.play().then(() => {
         setAudioState(true);
+        removeActivationListeners();
       }).catch(err => {
         console.warn("Audio playback error:", err);
       });
@@ -234,7 +244,11 @@ if (weddingAudio && audioToggle) {
     }
   });
 
-  // Handle audio end / loop seamlessly
+  // Keep state synchronized with real audio element events
+  weddingAudio.addEventListener("play", () => setAudioState(true));
+  weddingAudio.addEventListener("pause", () => setAudioState(false));
+
+  // Seamless looping
   weddingAudio.addEventListener("ended", () => {
     weddingAudio.currentTime = 0;
     weddingAudio.play().catch(() => {});

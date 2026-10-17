@@ -393,9 +393,9 @@
     </button>
 
     <!-- Floating Wedding Song Player & Sound Toggle -->
-    <div class="music-player-widget is-playing" id="musicPlayerWidget">
+    <div class="music-player-widget is-muted" id="musicPlayerWidget">
       <audio id="weddingAudio" src="wedding-song.mp3" preload="auto" loop></audio>
-      <button class="music-toggle-btn floating-btn" id="audioToggle" aria-label="Play or mute wedding song" title="Click to mute or pause music" aria-pressed="true">
+      <button class="music-toggle-btn floating-btn" id="audioToggle" aria-label="Play or mute wedding song" title="Click to play wedding song" aria-pressed="false">
         <!-- Animated Equalizer Bars -->
         <span class="equalizer-bars" id="equalizerBars" aria-hidden="true">
           <span class="bar bar-1"></span>
@@ -406,13 +406,13 @@
         <!-- Speaker SVG Icons -->
         <span class="speaker-icon-wrapper">
           <!-- Playing / Sound On Icon -->
-          <svg class="music-svg icon-playing" id="iconSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="music-svg icon-playing" id="iconSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
           </svg>
           <!-- Muted / Disabled Voice Icon -->
-          <svg class="music-svg icon-muted" id="iconSoundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+          <svg class="music-svg icon-muted" id="iconSoundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <line x1="23" y1="9" x2="17" y2="15"></line>
             <line x1="17" y1="9" x2="23" y2="15"></line>
@@ -420,7 +420,7 @@
         </span>
 
         <!-- Label text -->
-        <span class="music-label" id="musicStatusText">Music On</span>
+        <span class="music-label" id="musicStatusText">Play Song</span>
       </button>
     </div>
   </aside>
